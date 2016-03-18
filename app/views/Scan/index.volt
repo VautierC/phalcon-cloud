@@ -12,7 +12,6 @@
 				-->
 				<div class="alert alert-info">Caractéristique du disque</div>
 				{{ liste }}
-				{{ q["btRetour"] }}
 			</div>
 			<div role="tabpanel" class="tab-pane" id="Listing">
 				<div class="btn-toolbar">
@@ -96,6 +95,10 @@
 <!--
 	//TODO 4.3 .btClose bouton de fermeture
  -->
+
+	{{ q["btRetour"] }}
+
+	
 {{ javascript_include("js/jquery-file-upload/jquery.knob.js") }}
 <!-- jQuery File Upload Dependencies -->
 {{ javascript_include("js/jquery-file-upload/jquery.ui.widget.js") }}
