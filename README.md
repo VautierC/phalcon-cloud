@@ -1,6 +1,6 @@
 # phalcon-cloud
 DUT Evaluation
-Réalisé par Clément Vautier.
+
 A Phalcon and Phalcon-jQuery web application
 #Howto
 

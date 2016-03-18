@@ -23,8 +23,7 @@ class ScanController extends ControllerBase {
 		));
 		$liste=$this->jquery->bootstrap()->htmlListgroup("liste");
 		$liste->addItem(array("Nom :".$disque->getNom()."&nbsp".
-				$this->jquery->bootstrap()->htmlButton("btModifNom","Modifier","default")->setProperties(array("data-ajax", "Scan/update"))));
-
+				$this->jquery->bootstrap()->htmlButton("btModifNom","Modifier","default")));
 		$liste->addItem("Propriétaire : ".$user->getLogin()." (".$user->getPrenom()." ".$user->getNom().")");
 		$liste->addItem(array(
 			"Occupation",
