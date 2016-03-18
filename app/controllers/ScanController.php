@@ -8,9 +8,42 @@ class ScanController extends ControllerBase {
 	 */
 	public function indexAction($idDisque) {
 		//TODO 4.3
-		$diskName="nom du disque.......................";
+		$disque=Disque::findFirst(array(
+			"conditions" => "id = :id:",
+			"bind" => array("id" => $idDisque)));
+		$diskName=$disque->getNom();
+		$services=$disque->getServices();
+		$occupation=ModelUtils::getDisqueOccupation($this->config->cloud,$disque);
+		$tarif=Tarif::findFirst(ModelUtils::getDisqueTarif($disque));
+		$usage=round((($occupation/ModelUtils::sizeConverter($tarif->getUnite()))/$tarif->getQuota()),2);
 
+		$user=Utilisateur::findFirst(array(
+			"conditions"=>"id=:id:",
+			"bind"=> array("id"=>$disque->getIdUtilisateur())
+		));
+		$liste=$this->jquery->bootstrap()->htmlListgroup("liste");
+		$liste->addItem(array("Nom :".$disque->getNom()."&nbsp".
+				$this->jquery->bootstrap()->htmlButton("btModifNom","Modifier","default")));
+		$liste->addItem("Propriétaire : ".$user->getLogin()." (".$user->getPrenom()." ".$user->getNom().")");
+		$liste->addItem(array(
+			"Occupation",
+			round(($occupation/ModelUtils::sizeConverter($tarif->getUnite())),2).$tarif->getUnite()." (".($usage*100)."%) sur ".$tarif->getQuota()." ".$tarif->getUnite()
+		));
+		if($usage*100<10)$liste->getItem(2)->addLabel("Peu occupé","info");
+		else if($usage*100<50)$liste->getItem(2)->addLabel("RAS","success");
+		else if($usage*100<80)$liste->getItem(2)->addLabel("Forte occupation","warning");
+		else $liste->getItem(2)->addLabel("Proche Saturation","danger");
 
+		$liste->addItem(array(
+			"Tarification",
+			"prix : ".$tarif->getPrix()."€, Marge de dépassement : ".($tarif->getMargeDepassement()*100)."%, coût dépassement : ".$tarif->getCoutDepassement()."€"
+		));
+		$liste->addItem(array(
+			"Services"
+		));
+		foreach($services as $service){
+			$liste->getItem(4)->addLabel($service->getNom(),"info");
+		}
 		$this->jquery->execOn("click", "#ckSelectAll", "$('.toDelete').prop('checked', $(this).prop('checked'));$('#btDelete').toggle($('.toDelete:checked').length>0)");
 		$this->jquery->execOn("click","#btUpload","$('#tabsMenu a:last').tab('show');");
 		$this->jquery->doJQueryOn("click","#btDelete", "#panelConfirmDelete", "show");
@@ -19,6 +52,11 @@ class ScanController extends ControllerBase {
 		$this->jquery->postFormOn("click", "#btCreateFolder", "Scan/createFolder", "frmCreateFolder","#ajaxResponse");
 		$this->jquery->exec("window.location.hash='';scan('".$diskName."')",true);
 
+		$bt=$this->jquery->bootstrap()->htmlButton("btRetour","Fermer et retourner à Mes disques","primary");
+		$bt->setProperty("data-ajax", "MyDisques");
+		$this->jquery->getOnClick("a.btn, button.btn","","#content",array("attr"=>"data-ajax"));
+
+		$this->view->setVars(array("liste"=>$liste,"disque"=>$disque));
 		$this->jquery->compile($this->view);
 	}
 

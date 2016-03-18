@@ -101,6 +101,7 @@ class Disque extends \Phalcon\Mvc\Model
         $this->hasMany('id', 'DisqueTarif', 'idDisque', array('alias' => 'DisqueTarifs'));
         $this->hasMany('id', 'Historique', 'idDisque', array('alias' => 'Historiques'));
         $this->belongsTo('idUtilisateur', 'Utilisateur', 'id', array('alias' => 'Utilisateur'));
+        $this->hasManyToMany('id','DisqueService','idDisque','idService','Service','id',array("alias"=>"services"));
     }
 
     /**

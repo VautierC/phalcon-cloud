@@ -11,8 +11,8 @@
 				//TODO 4.3 implémenter à partir de DisqueController/indexAction
 				-->
 				<div class="alert alert-info">Caractéristique du disque</div>
-				{{ liste }}
-				{{ q["btRetour"] }}
+				<?php echo $liste; ?>
+				<?php echo $q['btRetour']; ?>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="Listing">
 				<div class="btn-toolbar">
@@ -96,11 +96,11 @@
 <!--
 	//TODO 4.3 .btClose bouton de fermeture
  -->
-{{ javascript_include("js/jquery-file-upload/jquery.knob.js") }}
+<?php echo $this->tag->javascriptInclude('js/jquery-file-upload/jquery.knob.js'); ?>
 <!-- jQuery File Upload Dependencies -->
-{{ javascript_include("js/jquery-file-upload/jquery.ui.widget.js") }}
-{{ javascript_include("js/jquery-file-upload/jquery.iframe-transport.js") }}
-{{ javascript_include("js/jquery-file-upload/jquery.fileupload.js") }}
+<?php echo $this->tag->javascriptInclude('js/jquery-file-upload/jquery.ui.widget.js'); ?>
+<?php echo $this->tag->javascriptInclude('js/jquery-file-upload/jquery.iframe-transport.js'); ?>
+<?php echo $this->tag->javascriptInclude('js/jquery-file-upload/jquery.fileupload.js'); ?>
 
-{{ javascript_include("js/jquery-file-upload/script.js") }}
-{{ script_foot }}
+<?php echo $this->tag->javascriptInclude('js/jquery-file-upload/script.js'); ?>
+<?php echo $script_foot; ?>

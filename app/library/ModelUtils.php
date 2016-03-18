@@ -17,8 +17,20 @@ class ModelUtils {
 	 * @return Tarif tarif actuel de $disque
 	 */
 	public static function getDisqueTarif($disque){
-		//TODO 4.1
-		return null;
+		$tarifs=DisqueTarif::find(array(
+				"conditions" => "idDisque=:id:",
+			"bind" => array("id" => $disque->id)));
+		$date=null;
+		$cpt=0;
+		$id=null;
+		foreach($tarifs as $tarif){
+			if(is_null($date) or ($tarif->startDate > $date)){
+				$date=$tarif->startDate;
+				$id=$cpt;
+			}
+			$cpt++;
+		}
+		return $tarifs[$id]->getIdTarif();
 	}
 
 	/**
