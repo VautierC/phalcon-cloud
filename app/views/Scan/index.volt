@@ -98,7 +98,7 @@
 
 	{{ q["btRetour"] }}
 
-	
+
 {{ javascript_include("js/jquery-file-upload/jquery.knob.js") }}
 <!-- jQuery File Upload Dependencies -->
 {{ javascript_include("js/jquery-file-upload/jquery.ui.widget.js") }}

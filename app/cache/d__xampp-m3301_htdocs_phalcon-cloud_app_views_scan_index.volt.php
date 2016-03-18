@@ -98,7 +98,7 @@
 
 	<?php echo $q['btRetour']; ?>
 
-	
+
 <?php echo $this->tag->javascriptInclude('js/jquery-file-upload/jquery.knob.js'); ?>
 <!-- jQuery File Upload Dependencies -->
 <?php echo $this->tag->javascriptInclude('js/jquery-file-upload/jquery.ui.widget.js'); ?>
