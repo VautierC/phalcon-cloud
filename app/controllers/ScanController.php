@@ -23,7 +23,7 @@ class ScanController extends ControllerBase {
 		));
 		$liste=$this->jquery->bootstrap()->htmlListgroup("liste");
 		$liste->addItem(array("Nom :".$disque->getNom()."&nbsp".
-				$this->jquery->bootstrap()->htmlButton("btModifNom","Modifier","default")));
+				$this->jquery->bootstrap()->htmlButton("btModifNom","Modifier","default")->getOnClick("Disques/frm/".$disque->getId(),"#content",array("attr"=>"data-ajax"))));
 		$liste->addItem("Propriétaire : ".$user->getLogin()." (".$user->getPrenom()." ".$user->getNom().")");
 		$liste->addItem(array(
 			"Occupation",
@@ -36,8 +36,10 @@ class ScanController extends ControllerBase {
 
 		$liste->addItem(array(
 			"Tarification",
-			"prix : ".$tarif->getPrix()."€, Marge de dépassement : ".($tarif->getMargeDepassement()*100)."%, coût dépassement : ".$tarif->getCoutDepassement()."€"
+			"prix : ".$tarif->getPrix()."€, Marge de dépassement : ".($tarif->getMargeDepassement()*100)."%, coût dépassement : ".$tarif->getCoutDepassement()."€",
+			//$this->jquery->bootstrap()->htmlButton("btModifTarif","Modifier","default")
 		));
+
 		$liste->addItem(array(
 			"Services"
 		));
@@ -52,7 +54,7 @@ class ScanController extends ControllerBase {
 		$this->jquery->postFormOn("click", "#btCreateFolder", "Scan/createFolder", "frmCreateFolder","#ajaxResponse");
 		$this->jquery->exec("window.location.hash='';scan('".$diskName."')",true);
 
-		$bt=$this->jquery->bootstrap()->htmlButton("btRetour","Fermer et retourner à Mes disques","primary");
+		$bt=$this->jquery->bootstrap()->htmlButton("btRetour","Fermer et retourner à Mes disque","primary");
 		$bt->setProperty("data-ajax", "MyDisques");
 		$this->jquery->getOnClick("a.btn, button.btn","","#content",array("attr"=>"data-ajax"));
 

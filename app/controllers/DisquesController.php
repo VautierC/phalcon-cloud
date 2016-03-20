@@ -19,11 +19,19 @@ class DisquesController extends \DefaultController {
 
 	public function frmAction($id=NULL){
 		$disque=$this->getInstance($id);
-		//TODO 4.4.1
-		$this->view->setVars(array("disque"=>$disque,"siteUrl"=>$this->url->getBaseUri(),"baseHref"=>$this->dispatcher->getControllerName()));
+		$this->view->setVars(array("disque"=>$disque,"siteUrl"=>$this->url->getBaseUri(),"baseHref"=>"Disque"));
 		parent::frmAction($id);
 	}
 
+	public function addDisqueAction($disque){
+		$newDisque=new Disque();
+		$newDisque->setNom($_POST['nom']);
+		$newDisque->setId($disque->getId());
+		$newDisque->setIdUtilisateur($disque->getIdUtilisateur());
+		if($newDisque->save() == false)
+			echo "Erreur d'enregistrement";
+		else echo "Succes de l'enregistrement";
+	}
 	/**
 	 * Action à exécuter après update
 	 * par défaut forward vers l'index du contrôleur en cours

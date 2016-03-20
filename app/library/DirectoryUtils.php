@@ -92,7 +92,7 @@ class DirectoryUtils {
 		return $histo;
 	}
 	/**
-	 * Met à jour l'historique de tous les disques
+	 * Met à jour l'historique de tous les disque
 	 * @param array $cloud Configuration du Cloud, accès par $this->config->cloud dans un contrôleur
 	 */
 	public static function updateAllDaySize($cloud){

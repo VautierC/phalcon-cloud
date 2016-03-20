@@ -2,7 +2,7 @@
 
 class MyDisquesController extends \ControllerBase {
 	/**
-	 * Affiches les disques de l'utilisateur
+	 * Affiches les disque de l'utilisateur
 	 */
 	public function indexAction(){
 		$cpt=0;
@@ -23,9 +23,8 @@ class MyDisquesController extends \ControllerBase {
 				else $style="danger";
 
 				$bootstrap=$this->jquery->bootstrap();
-				$bt=$bootstrap->htmlButton("btScan","Ouvrir","info");
-				$bt->setProperty("data-ajax", "Scan/index/".$disque->getId());
-				$this->jquery->getOnClick("a.btn, button.btn","","#content",array("attr"=>"data-ajax"));
+				$bt=$bootstrap->htmlButton("btScan".$disque->getId(),"Ouvrir","info");
+				$bt->getOnClick("Scan/index/".$disque->getId(),"#content",array("attr"=>"data-ajax"));
 
 				$liste=$this->jquery->bootstrap()->htmlListgroup("list"+$cpt,array(
 					$disque->getNom(),
@@ -43,6 +42,9 @@ class MyDisquesController extends \ControllerBase {
 
 		}
 		else{
+			$bt=$this->jquery->bootstrap()->htmlButton("btCo","Se connecter","connexion");
+			$bt->getOnClick("Auth/index","#content",array("attr"=>"data-ajax"));
+
 			$this->view->setVars(array("userCo"=>false));
 			$this->jquery->compile($this->view);
 		}
