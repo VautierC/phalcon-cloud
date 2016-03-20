@@ -23,7 +23,7 @@ class ScanController extends ControllerBase {
 		));
 		$liste=$this->jquery->bootstrap()->htmlListgroup("liste");
 		$liste->addItem(array("Nom :".$disque->getNom()."&nbsp".
-				$this->jquery->bootstrap()->htmlButton("btModifNom","Modifier","default")->getOnClick("Disques/frm/".$disque->getId(),"#content",array("attr"=>"data-ajax"))));
+				$this->jquery->bootstrap()->htmlButton("btModifNom","Modifier","default")->getOnClick("Scan/frm/".$disque->getId(),"#content",array("attr"=>"data-ajax"))));
 		$liste->addItem("Propriétaire : ".$user->getLogin()." (".$user->getPrenom()." ".$user->getNom().")");
 		$liste->addItem(array(
 			"Occupation",
@@ -81,9 +81,26 @@ class ScanController extends ControllerBase {
 		));
 	}
 
+	public function frmAction($id=NULL){
+		$disque=Disque::findFirst($id);
+		$this->view->setVars(array("disque"=>$disque,"siteUrl"=>$this->url->getBaseUri(),"baseHref"=>$this->dispatcher->getControllerName()));
+	}
 
+	public function updateAction(){
+		$newDisque=new Disque();
+		$newDisque->setNom($_POST['nom']);
+		$newDisque->setId($_POST['id']);
+		$newDisque->setIdUtilisateur($_POST['idUtil']);
+		if($newDisque->save() == false)
+			echo "Erreur d'enregistrement";
+		else echo "Succes de l'enregistrement";
 
+		$this->_postUpdateAction($_POST);
+	}
 
+	protected function _postUpdateAction($params){
+		$this->dispatcher->forward(array("controller"=>"Scan","action"=>"index","params"=>array($params['id'])));
+	}
 	/**
 	 * Action d'upload d'un fichier
 	 */

@@ -13,25 +13,20 @@ class DisquesController extends \DefaultController {
      * @param multitype:$className $object
      */
 	protected function setValuesToObject(&$object) {
+		var_dump($object);
 		parent::setValuesToObject($object);
+		echo "</br>";
+		var_dump($object);
 		//TODO 4.4.1
 	}
 
 	public function frmAction($id=NULL){
 		$disque=$this->getInstance($id);
-		$this->view->setVars(array("disque"=>$disque,"siteUrl"=>$this->url->getBaseUri(),"baseHref"=>"Disque"));
+		$this->view->setVars(array("disque"=>$disque,"siteUrl"=>$this->url->getBaseUri(),"baseHref"=>$this->dispatcher->getControllerName()));
 		parent::frmAction($id);
 	}
 
-	public function addDisqueAction($disque){
-		$newDisque=new Disque();
-		$newDisque->setNom($_POST['nom']);
-		$newDisque->setId($disque->getId());
-		$newDisque->setIdUtilisateur($disque->getIdUtilisateur());
-		if($newDisque->save() == false)
-			echo "Erreur d'enregistrement";
-		else echo "Succes de l'enregistrement";
-	}
+
 	/**
 	 * Action à exécuter après update
 	 * par défaut forward vers l'index du contrôleur en cours
@@ -39,6 +34,8 @@ class DisquesController extends \DefaultController {
 	 */
 	protected function _postUpdateAction($params){
 		//TODO 4.4.1
+		$this->dispatcher->forward(array("controller"=>"MyDisques","action"=>"index"));
+
 	}
 
 

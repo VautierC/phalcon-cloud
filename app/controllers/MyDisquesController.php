@@ -37,6 +37,9 @@ class MyDisquesController extends \ControllerBase {
 
 				$cpt++;
 			}
+			$btCrea=$this->jquery->bootstrap()->htmlButton("btCrea","Créer un disque","primary");
+			$btCrea->getOnClick("Disques/frm","#content",array("attr"=>"data-ajax"));
+
 			$this->view->setVars(array("userCo"=>true,"liste"=>$listGroup,"disquesUser"=>$disquesUser,"user"=>$user));
 			$this->jquery->compile($this->view);
 
