@@ -34,6 +34,7 @@ class DisquesController extends \DefaultController {
 	 */
 	protected function _postUpdateAction($params){
 		//TODO 4.4.1
+		DirectoryUtils::mkDir("/phalcon-cloud/public/files/srv-eAllman/".$params[1]);
 		$this->dispatcher->forward(array("controller"=>"MyDisques","action"=>"index"));
 
 	}

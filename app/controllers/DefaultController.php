@@ -115,7 +115,7 @@ class DefaultController extends ControllerBase{
     				$msg=new DisplayedMessage("Impossible d'ajouter l'instance de ".$this->model."<br>".$e->getMessage(),"danger");
     			}
     		}
-    		$this->_postUpdateAction(array($msg));
+    		$this->_postUpdateAction(array($msg,$object));
     	}
     }
 
